@@ -1,0 +1,13 @@
+ID=1
+OPAT=2
+OPAR=3
+OPRE=4
+OPBO=5
+AP=6
+FP=7
+NUM=8
+WS=9
+ErrorChar=10
+'='=2
+'('=6
+')'=7
