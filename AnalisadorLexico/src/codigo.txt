@@ -1,9 +1,19 @@
+/*
+Exemplo de Código sem erros Lexicos da linguagem "Alguma 2.0 (FJ)"
+Autores: Fernando Roque e Jonathas Sousa
+*/
 
-int x
-real y
-int z
+PRIVADO INTEIRO valor1;
 
-    x=10
-    y = 12
-    z = x + y 
+valor1 = 0;
+
+ENQUANTO (valo1 < 10){
+    valor1 = valor1 + 1;
+    ESCREVER(valor1);
+}
+
+CARACTERER nome;
+
+nome = LER("escreva o seu nome: ");
+ESCREVER(nome);
 

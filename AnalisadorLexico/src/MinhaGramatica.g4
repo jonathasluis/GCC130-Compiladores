@@ -15,9 +15,13 @@ FCH: '}';
 AC: '[';
 FC: ']';
 DELIMITADOR: ';';
+SEPARADOR: ',';
 RETORNO:'RETORNO';
-
-NUM: DIGITO+('.'DIGITO+)?;
+IO: 'LER'|'ESCREVER';
+COMENT: '/*' .* '*/';
+TEXTO: '"' .* '"';
+NUM: ('-')?DIGITO+('.'DIGITO+)?;
+MODACESSO: 'PUBLICO'|'PRIVADO';
 fragment LETRA: [a-zA-Z];
 fragment DIGITO: [0-9];
 WS: [ \r\t\n]* ->skip;

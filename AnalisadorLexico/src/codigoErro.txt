@@ -1,0 +1,18 @@
+/*
+Exemplo de Código com erros Lexicos da linguagem "Alguma 2.0 (FJ)"
+Autores: Fernando Roque e Jonathas Sousa
+*/
+
+InTEIRO valor1;
+
+valor1 = 0;
+
+ENQUANTO (valo1 < 10 ){
+    valor1 = valor1 + 1;
+    ESCREVER(Valor1);
+}
+
+CARACTERER nome;
+
+nome = LER("escreva o seu nome: ");
+ESCREVER(NOME);
