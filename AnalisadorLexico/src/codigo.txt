@@ -1,7 +1,5 @@
-/*
-Exemplo de Código sem erros Lexicos da linguagem "Alguma 2.0 (FJ)"
-Autores: Fernando Roque e Jonathas Sousa
-*/
+//Exemplo de Código sem erros Lexicos da linguagem "Alguma 2.0 (FJ)"
+//Autores: Fernando Roque e Jonathas Sousa
 
 PRIVADO INTEIRO valor1;
 
@@ -12,8 +10,7 @@ ENQUANTO (valo1 < 10){
     ESCREVER(valor1);
 }
 
-CARACTERER nome;
+CARACTERE nome;
 
 nome = LER("escreva o seu nome: ");
 ESCREVER(nome);
-

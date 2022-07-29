@@ -1,7 +1,7 @@
-/*
-Exemplo de Código com erros Lexicos da linguagem "Alguma 2.0 (FJ)"
-Autores: Fernando Roque e Jonathas Sousa
-*/
+
+// Exemplo de Código com erros Lexicos da linguagem "Alguma 2.0 (FJ)"
+//Autores: Fernando Roque e Jonathas Sousa
+
 
 InTEIRO valor1;
 
@@ -12,7 +12,7 @@ ENQUANTO (valo1 < 10 ){
     ESCREVER(Valor1);
 }
 
-CARACTERER nome;
+CARACTERE nome;
 
 nome = LER("escreva o seu nome: ");
 ESCREVER(NOME);
