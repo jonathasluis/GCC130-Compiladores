@@ -9,7 +9,7 @@ options
 // * -> zero ou mais vezes
 // + -> uma ou mais vezes
 
-programa : (declaracao)* (metodo)+ EOF;
+programa : (declaracao)* (metodo)+;
 declaracao : (MODACESSO)? variavel DELIMITADOR;
 metodo : (MODACESSO)? variavel AP parametrosFunc FP ACH qq retorno FCH;
 retorno : RETORNO ID DELIMITADOR;
@@ -28,8 +28,8 @@ qq : ( declaracao
 
 for : FOR AP ID SEPARADOR (NUM | ID) SEPARADOR (NUM | ID) SEPARADOR NUM FP ACH qq FCH;
 while : WHILE AP exprCondicional FP ACH qq FCH;
-condicao : IF AP exprCondicional FP THEN  ACH qq FCH (else)?;
-else : (condicao)? ACH qq FCH;
+condicao : IF AP exprCondicional FP THEN  ACH qq FCH else?;
+else : ELSE (condicao | (ACH qq FCH));
 exprRelacional : ID OPRE (ID | NUM | TEXTO);
 exprCondicional : exprRelacional (OPBO exprRelacional)*;
 exprAt : ID OPAT (exprAr | ID | input | NUM | TEXTO | callFunc);
@@ -38,4 +38,7 @@ input : INPUT AP (TEXTO)? FP;
 output : OUTPUT AP TEXTO FP;
 callFunc : ID AP elementoCall FP;
 elementoCall : expressao (SEPARADOR expressao)*;
-expressao : callFunc | exprAr | exprCondicional | AP expressao FP;
+expressao : callFunc
+    | exprAr
+    | exprCondicional
+    | AP expressao FP;
