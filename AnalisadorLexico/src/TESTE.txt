@@ -1,0 +1,21 @@
+PRIVADO INTEIRO teste;
+
+PUBLICO INTEIRO principal () {
+    PRIVADO INTEIRO idade;
+    PRIVADO CARACTERE nome;
+
+    idade = 0;
+
+    ENQUANTO (idade != -1 ) {
+        nome = LER();
+        idade = LER("idade: ");
+
+        SE (idade < 18 E idade >= 0) ENTAO {
+            ESCREVER("Menor de idade");
+        } SENAO SE (idade >= 18 E idade < 60) ENTAO {
+            ESCREVER("Adulto");
+        } SENAO {
+            ESCREVER("Idoso");
+        }
+    }
+}

@@ -1,4 +1,4 @@
-grammar MinhaGramatica;
+lexer grammar MinhaGramatica;
 
 ID: [a-z](DIGITO|LETRA)*;
 OPAT: '=';
@@ -9,7 +9,8 @@ TIPO: 'INTEIRO' | 'REAL' | 'CARACTERE' | 'BOOLEANO';
 IF: 'SE';
 ELSE: 'SENAO';
 THEN: 'ENTAO';
-LOOP: 'PARA' | 'ENQUANTO';
+FOR: 'PARA';
+WHILE: 'ENQUANTO';
 AP: '(';
 FP: ')';
 ACH: '{';
@@ -19,7 +20,8 @@ FC: ']';
 DELIMITADOR: ';';
 SEPARADOR: ',';
 RETORNO:'RETORNO';
-IO: 'LER'|'ESCREVER';
+INPUT: 'LER';
+OUTPUT:'ESCREVER';
 MODACESSO: 'PUBLICO'|'PRIVADO';
 TEXTO: '"' (ESC | ~["\\])* '"';
 NUM: ('-')?DIGITO+('.'DIGITO+)?;
