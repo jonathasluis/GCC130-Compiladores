@@ -1,6 +1,6 @@
 PRIVADO INTEIRO teste;
 
-PUBLICO INTEIRO principal () {
+PUBLICO INTEIRO principal (){
     PRIVADO INTEIRO idade;
     PRIVADO CARACTERE nome;
 
@@ -18,4 +18,6 @@ PUBLICO INTEIRO principal () {
             ESCREVER("Idoso");
         }
     }
+    RETORNO id;
 }
+

@@ -9,13 +9,14 @@ options
 // * -> zero ou mais vezes
 // + -> uma ou mais vezes
 
-programa : (declaracao)* (metodo)+;
+inicio : programa EOF;
+programa : (declaracao)* (metodo)*;
 declaracao : (MODACESSO)? variavel DELIMITADOR;
-metodo : (MODACESSO)? variavel AP parametrosFunc FP ACH qq retorno FCH;
+metodo : (MODACESSO)? variavel AP parametrosFunc FP ACH qualquerCoisa retorno FCH;
 retorno : RETORNO ID DELIMITADOR;
 parametrosFunc : (variavel (SEPARADOR variavel)*)?;
 variavel : TIPO ID;
-qq : ( declaracao
+qualquerCoisa : ( declaracao
     | for
     | while
     | condicao
@@ -23,13 +24,11 @@ qq : ( declaracao
     | exprAr DELIMITADOR
     | input DELIMITADOR
     | output DELIMITADOR
-    | callFunc DELIMITADOR
-)*;
-
-for : FOR AP ID SEPARADOR (NUM | ID) SEPARADOR (NUM | ID) SEPARADOR NUM FP ACH qq FCH;
-while : WHILE AP exprCondicional FP ACH qq FCH;
-condicao : IF AP exprCondicional FP THEN  ACH qq FCH else?;
-else : ELSE (condicao | (ACH qq FCH));
+    | callFunc DELIMITADOR)*;
+for : FOR AP ID SEPARADOR (NUM | ID) SEPARADOR (NUM | ID) SEPARADOR NUM FP ACH qualquerCoisa FCH;
+while : WHILE AP exprCondicional FP ACH qualquerCoisa FCH;
+condicao : IF AP exprCondicional FP THEN  ACH qualquerCoisa FCH else?;
+else : ELSE (condicao | (ACH qualquerCoisa FCH));
 exprRelacional : ID OPRE (ID | NUM | TEXTO);
 exprCondicional : exprRelacional (OPBO exprRelacional)*;
 exprAt : ID OPAT (exprAr | ID | input | NUM | TEXTO | callFunc);
@@ -42,3 +41,6 @@ expressao : callFunc
     | exprAr
     | exprCondicional
     | AP expressao FP;
+
+
+

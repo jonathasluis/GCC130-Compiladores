@@ -1,4 +1,3 @@
-import org.antlr.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -11,6 +10,27 @@ import java.util.List;
 public class ExemploLexer {
 
     public static void main(String[] args) {
+        lexico();
+        sintatico();
+    }
+
+    public static void sintatico() {
+        String filename = "AnalisadorLexico/src/TESTE.txt";
+        try {
+            CharStream input = CharStreams.fromFileName(filename);
+            MinhaGramatica lexer = new MinhaGramatica(input);
+            CommonTokenStream tokens = new CommonTokenStream(lexer);
+            GramaticaSintatica teste = new GramaticaSintatica(tokens);
+            teste.inicio();
+            if (teste.getNumberOfSyntaxErrors() == 0) {
+                System.out.println("Nao ha erros sintaticos\n");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void lexico() {
         List<Integer> linhas = new ArrayList<Integer>();
         String filename = "AnalisadorLexico/src/TESTE.txt";
         //String filename = "AnalisadorLexico/src/codigoErro.txt";
@@ -39,8 +59,9 @@ public class ExemploLexer {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        System.out.println("\nErros nas linhas: " + linhas);
+        if (linhas.size() > 0)
+            System.out.println("\nErros lexicos nas linhas: " + linhas + "\n");
+        else
+            System.out.println("\nNao ha erros lexicos\n");
     }
-
 }
