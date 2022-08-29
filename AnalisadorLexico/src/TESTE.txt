@@ -3,9 +3,6 @@ PRIVADO INTEIRO teste;
 PUBLICO INTEIRO principal (){
     PRIVADO INTEIRO idade;
     PRIVADO CARACTERE nome;
-
-    idade = 0;
-
     ENQUANTO (idade != -1 ) {
         nome = LER();
         idade = LER("idade: ");
@@ -19,5 +16,12 @@ PUBLICO INTEIRO principal (){
         }
     }
     RETORNO id;
+}
+
+PRIVADO CARACTERE teste(INTEIRO valor1, BOOLEANO b){
+    x = funcao(i > 0) + V;
+    x = 2;
+    x = i + 5.8;
+    RETORNO y;
 }
 

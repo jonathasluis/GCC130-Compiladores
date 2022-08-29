@@ -6,6 +6,7 @@ OPAR: '+'|'-'|'*'|'/'|'|'|'%';
 OPRE: '=='|'>'|'>='|'<'|'<='|'!=';
 OPBO: 'E'|'OU'|'NAO'|'OUX';
 TIPO: 'INTEIRO' | 'REAL' | 'CARACTERE' | 'BOOLEANO';
+VALBO : 'V' | 'F';
 IF: 'SE';
 ELSE: 'SENAO';
 THEN: 'ENTAO';
