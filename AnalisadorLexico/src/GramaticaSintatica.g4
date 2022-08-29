@@ -29,9 +29,9 @@ for : FOR AP ID SEPARADOR (NUM | ID) SEPARADOR (NUM | ID) SEPARADOR NUM FP ACH q
 while : WHILE AP exprCondicional FP ACH qualquerCoisa FCH;
 condicao : IF AP exprCondicional FP THEN  ACH qualquerCoisa FCH else?;
 else : ELSE (condicao | (ACH qualquerCoisa FCH));
-exprRelacional : ID OPRE elemento;
+exprRelacional : elemento OPRE elemento;
 exprCondicional : exprRelacional (OPBO exprRelacional)*;
-exprAt : ID OPAT (exprAr | elemento);
+exprAt : ID OPAT (exprAr | elemento | exprCondicional);
 exprAr : elemento OPAR elemento;
 input : INPUT AP (TEXTO)? FP;
 output : OUTPUT AP TEXTO FP;
