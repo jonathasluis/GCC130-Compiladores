@@ -1,4 +1,4 @@
-lexer grammar MinhaGramatica;
+lexer grammar GramaticaLexica;
 
 ID: [a-z](DIGITO|LETRA)*;
 OPAT: '=';
