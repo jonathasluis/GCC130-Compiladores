@@ -1,14 +1,14 @@
 PRIVADO INTEIRO teste;
 
-PUBLICO INTEIRO principal (){
+PUBLICO CARACTERE principal (INTEIRO x){
     PRIVADO INTEIRO idade;
     PRIVADO CARACTERE nome;
-    INTEIRO id;
-    ENQUANTO (idade != -1 ) {
+    REAL id;
+    ENQUANTO ("F" != nome) {
         nome = LER();
         idade = LER("idade: ");
 
-        SE (idade < 18 E idade >= 0) ENTAO {
+        SE (2 == 2 E 2 >= 0) ENTAO {
             ESCREVER("Menor de idade");
         } SENAO SE (idade >= 18 E idade < 60) ENTAO {
             ESCREVER("Adulto");
@@ -16,15 +16,16 @@ PUBLICO INTEIRO principal (){
             ESCREVER("Idoso");
         }
     }
-        PARA (x,y,9,10){LER();}
-    RETORNO id;
+    id = 5 + 9.6;
+    RETORNO nome;
 }
 
-PRIVADO CARACTERE teste(INTEIRO valor1, BOOLEANO b){
-    x = funcao(i > 0) + V;
-    x = 2;
-    x = i + 5.8;
-    teste(x,2,z);
-    RETORNO y;
+
+PUBLICO CARACTERE teste1 (){
+principal("a");
+RETORNO "a";
 }
+
+
+
 

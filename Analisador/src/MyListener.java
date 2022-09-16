@@ -8,7 +8,8 @@ import java.util.Map;
 
 public class MyListener extends GramaticaSintaticaBaseListener {
 
-    private Map<String, String> tabelaSimbolos = new HashMap<String, String>();
+    private final Map<String, String> tabelaSimbolos = new HashMap<>();
+    private final Map<String, List<GramaticaSintatica.VariavelContext>> tabelaParametros = new HashMap<>();
 
     @Override
     public void exitElemento(GramaticaSintatica.ElementoContext ctx) {
@@ -26,6 +27,15 @@ public class MyListener extends GramaticaSintaticaBaseListener {
             System.err.println("Não foi possivel encontrar o simbolo " + id);
             System.exit(0);
         }
+        int qtd = 0;
+        if (ctx.elementoCall() != null) {
+            qtd = ctx.elementoCall().elemento().size() + ctx.elementoCall().expressao().size();
+        }
+        List<GramaticaSintatica.VariavelContext> parametrosMetodo = tabelaParametros.get(ctx.ID().getText());
+        if (parametrosMetodo.size() != qtd) {
+            System.err.println("Quantidade de parametros esperados é diferente da passada");
+            System.exit(0);
+        }
     }
 
     @Override
@@ -35,7 +45,7 @@ public class MyListener extends GramaticaSintaticaBaseListener {
             if (!tabelaSimbolos.containsKey(i.getText())) {
                 System.err.println("Não foi possivel encontrar o simbolo " + i.getText());
                 System.exit(0);
-            }else if (!(tabelaSimbolos.get(i.getText()).equals("INTEIRO") || tabelaSimbolos.get(i.getText()).equals("REAL"))){
+            } else if (!(tabelaSimbolos.get(i.getText()).equals("INTEIRO") || tabelaSimbolos.get(i.getText()).equals("REAL"))) {
                 System.err.println("Tipo invalido para operação: " + tabelaSimbolos.get(i.getText()));
                 System.exit(0);
             }
@@ -120,6 +130,7 @@ public class MyListener extends GramaticaSintaticaBaseListener {
 
     @Override
     public void exitMetodo(GramaticaSintatica.MetodoContext ctx) {
+        tabelaParametros.put(ctx.variavel().ID().getText(), ctx.parametrosFunc().variavel());
         GramaticaSintatica.ElementoContext elemento = ctx.retorno().elemento();
         String tipoMetodo = ctx.variavel().TIPO().getText();
         if (elemento.ID() != null || elemento.callFunc() != null) {
@@ -148,7 +159,11 @@ public class MyListener extends GramaticaSintaticaBaseListener {
 
     @Override
     public void exitExprAr(GramaticaSintatica.ExprArContext ctx) {
-        if (ctx.elemento(0).VALBO() != null || ctx.elemento(1).VALBO() != null) {
+        if (ctx.elemento(0).VALBO() != null || ctx.elemento(1).VALBO() != null
+                || (ctx.elemento(0).ID() != null && getTabelaSimbolos().get(ctx.elemento(0).ID().getText()).equals("BOOLEANO"))
+                || (ctx.elemento(1).ID() != null && getTabelaSimbolos().get(ctx.elemento(1).ID().getText()).equals("BOOLEANO"))
+                || (ctx.elemento(0).callFunc() != null && getTabelaSimbolos().get(ctx.elemento(0).callFunc().ID().getText()).equals("BOOLEANO"))
+                || (ctx.elemento(1).callFunc() != null && getTabelaSimbolos().get(ctx.elemento(1).callFunc().ID().getText()).equals("BOOLEANO"))) {
             System.err.println("Operação não aplicavel para BOOLEANO");
             System.exit(0);
         }
@@ -159,6 +174,112 @@ public class MyListener extends GramaticaSintaticaBaseListener {
                 || ctx.elemento(0).TEXTO() != null || ctx.elemento(1).TEXTO() != null) && !ctx.OPAR().getText().equals("+")) {
             System.err.println("Operação não aplicavel para CARACTERE/TEXTO");
             System.exit(0);
+        }
+        GramaticaSintatica.ElementoContext elemento1 = ctx.elemento(0);
+        GramaticaSintatica.ElementoContext elemento2 = ctx.elemento(1);
+        if (elemento1.ID() != null || elemento1.callFunc() != null) {
+            String tipoEl1 = (elemento1.ID() != null ? getTabelaSimbolos().get(elemento1.ID().getText()) : getTabelaSimbolos().get(elemento1.callFunc().ID().getText()));
+            if (elemento2.ID() != null || elemento2.callFunc() != null) {
+                String tipoEl2 = (elemento2.ID() != null ? getTabelaSimbolos().get(elemento2.ID().getText()) : getTabelaSimbolos().get(elemento2.callFunc().ID().getText()));
+                if (!tipoEl1.equals(tipoEl2) &&
+                        !((tipoEl1.equals("REAL")
+                                && tipoEl2.equals("INTEIRO"))
+                                || (tipoEl2.equals("REAL")
+                                || tipoEl1.equals("INTEIRO")))) {
+                    System.err.println("Operacao invalida para os tipos " + tipoEl1 + " e " + tipoEl2);
+                    System.exit(0);
+                }
+            }
+        } else if (elemento1.NUM() != null) {
+            if (elemento2.ID() != null || elemento2.callFunc() != null) {
+                String tipoEl2 = (elemento2.ID() != null ? getTabelaSimbolos().get(elemento2.ID().getText()) : getTabelaSimbolos().get(elemento2.callFunc().ID().getText()));
+                if (!(tipoEl2.equals("INTEIRO") || tipoEl2.equals("REAL"))) {
+                    System.err.println("Operacao invalida para os tipos NUMERO e " + tipoEl2);
+                    System.exit(0);
+                }
+            } else if (elemento2.TEXTO() != null) {
+                System.err.println("Operacao invalida para os tipos NUMERO e CARACTERE");
+                System.exit(0);
+            }
+        }
+    }
+
+    @Override
+    public void exitExprRelacional(GramaticaSintatica.ExprRelacionalContext ctx) {
+        GramaticaSintatica.ElementoContext elemento1 = ctx.elemento(0);
+        GramaticaSintatica.ElementoContext elemento2 = ctx.elemento(1);
+        if ((elemento1.VALBO() != null || elemento2.VALBO() != null) && !(ctx.OPRE().getText().equals("==") || ctx.OPRE().getText().equals("!="))) {
+            System.err.println("Operacao invalida para o tipo BOOLEANO");
+            System.exit(0);
+        }
+        if (elemento1.ID() != null || elemento1.callFunc() != null) {
+            String tipoEl1 = (elemento1.ID() != null ? getTabelaSimbolos().get(elemento1.ID().getText()) : getTabelaSimbolos().get(elemento1.callFunc().ID().getText()));
+            if (elemento2.ID() != null || elemento2.callFunc() != null) {
+                String tipoEl2 = (elemento2.ID() != null ? getTabelaSimbolos().get(elemento2.ID().getText()) : getTabelaSimbolos().get(elemento2.callFunc().ID().getText()));
+                if (!tipoEl1.equals(tipoEl2) &&
+                        !((tipoEl1.equals("REAL") && tipoEl2.equals("INTEIRO")) || (tipoEl2.equals("REAL") && tipoEl1.equals("INTEIRO")))) {
+                    System.err.println("Operacao invalida para os tipos " + tipoEl1 + " e " + tipoEl2);
+                    System.exit(0);
+                }
+            } else if (elemento2.TEXTO() != null) {
+                if (!tipoEl1.equals("CARACTERE")) {
+                    System.err.println("Operacao invalida para os tipos " + tipoEl1 + " e CARACTERE");
+                    System.exit(0);
+                }
+            } else if (elemento2.NUM() != null) {
+                if (!tipoEl1.equals("INTEIRO") && !tipoEl1.equals("REAL")) {
+                    System.err.println("Operacao invalida para os tipos " + tipoEl1 + " e NUMERAL");
+                    System.exit(0);
+                }
+            } else if (elemento2.VALBO() != null) {
+                if (!tipoEl1.equals("BOOLEANO")) {
+                    System.err.println("Operacao invalida para os tipos " + tipoEl1 + " e BOOLEANO");
+                    System.exit(0);
+                }
+            }
+            if (tipoEl1.equals("BOOLEANO") && !(ctx.OPRE().getText().equals("==") || ctx.OPRE().getText().equals("!="))) {
+                System.err.println("Operacao invalida para o tipo BOOLEANO");
+                System.exit(0);
+            }
+        } else if (elemento1.NUM() != null) {
+            if (elemento2.ID() != null || elemento2.callFunc() != null) {
+                String tipoEl2 = (elemento2.ID() != null ? getTabelaSimbolos().get(elemento2.ID().getText()) : getTabelaSimbolos().get(elemento2.callFunc().ID().getText()));
+                if (!(tipoEl2.equals("REAL") || tipoEl2.equals("INTEIRO"))) {
+                    System.err.println("Operacao invalida para os tipos NUMERO" + " e " + tipoEl2);
+                    System.exit(0);
+                }
+            } else if (elemento2.TEXTO() != null) {
+                System.err.println("Operacao invalida para os tipos NUMERO e CARACTERE");
+                System.exit(0);
+            } else if (elemento2.VALBO() != null) {
+                System.err.println("Operacao invalida para os tipos NUMERO e BOOLEANO");
+                System.exit(0);
+            }
+        } else if (elemento1.TEXTO() != null) {
+            if (elemento2.ID() != null || elemento2.callFunc() != null) {
+                String tipoEl2 = (elemento2.ID() != null ? getTabelaSimbolos().get(elemento2.ID().getText()) : getTabelaSimbolos().get(elemento2.callFunc().ID().getText()));
+                if (!tipoEl2.equals("CARACTERE")) {
+                    System.err.println("Operacao invalida para os tipos CARACTERE" + " e " + tipoEl2);
+                    System.exit(0);
+                }
+            } else if (elemento2.NUM() != null) {
+                System.err.println("Operacao invalida para os tipos CARACTERE e NUMERO");
+                System.exit(0);
+            } else if (elemento2.VALBO() != null) {
+                System.err.println("Operacao invalida para os tipos CARACTERE e BOOLEANO");
+                System.exit(0);
+            }
+        } else if (elemento1.VALBO() != null) {
+            if (elemento2.ID() != null || elemento2.callFunc() != null) {
+                String tipoEl2 = (elemento2.ID() != null ? getTabelaSimbolos().get(elemento2.ID().getText()) : getTabelaSimbolos().get(elemento2.callFunc().ID().getText()));
+                if (!tipoEl2.equals("BOOLEANO")) {
+                    System.err.println("Operacao invalida para os tipos BOOLEANO" + " e " + tipoEl2);
+                    System.exit(0);
+                }
+            } else if (elemento2.VALBO() == null) {
+                System.err.println("Operacao invalida para os tipos BOOLEANO");
+                System.exit(0);
+            }
         }
     }
 

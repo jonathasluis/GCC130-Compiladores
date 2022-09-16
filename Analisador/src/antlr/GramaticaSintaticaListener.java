@@ -80,17 +80,15 @@ public interface GramaticaSintaticaListener extends ParseTreeListener {
 	 */
 	void exitVariavel(GramaticaSintatica.VariavelContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code BlocoCodigo}
-	 * labeled alternative in {@link GramaticaSintatica#qualquerCoisa}.
+	 * Enter a parse tree produced by {@link GramaticaSintatica#qualquerCoisa}.
 	 * @param ctx the parse tree
 	 */
-	void enterBlocoCodigo(GramaticaSintatica.BlocoCodigoContext ctx);
+	void enterQualquerCoisa(GramaticaSintatica.QualquerCoisaContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code BlocoCodigo}
-	 * labeled alternative in {@link GramaticaSintatica#qualquerCoisa}.
+	 * Exit a parse tree produced by {@link GramaticaSintatica#qualquerCoisa}.
 	 * @param ctx the parse tree
 	 */
-	void exitBlocoCodigo(GramaticaSintatica.BlocoCodigoContext ctx);
+	void exitQualquerCoisa(GramaticaSintatica.QualquerCoisaContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link GramaticaSintatica#for}.
 	 * @param ctx the parse tree

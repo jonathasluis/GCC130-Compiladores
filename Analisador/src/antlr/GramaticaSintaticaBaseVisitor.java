@@ -66,7 +66,7 @@ public class GramaticaSintaticaBaseVisitor<T> extends AbstractParseTreeVisitor<T
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitBlocoCodigo(GramaticaSintatica.BlocoCodigoContext ctx) { return visitChildren(ctx); }
+	@Override public T visitQualquerCoisa(GramaticaSintatica.QualquerCoisaContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

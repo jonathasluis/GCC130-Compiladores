@@ -54,12 +54,11 @@ public interface GramaticaSintaticaVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitVariavel(GramaticaSintatica.VariavelContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code BlocoCodigo}
-	 * labeled alternative in {@link GramaticaSintatica#qualquerCoisa}.
+	 * Visit a parse tree produced by {@link GramaticaSintatica#qualquerCoisa}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitBlocoCodigo(GramaticaSintatica.BlocoCodigoContext ctx);
+	T visitQualquerCoisa(GramaticaSintatica.QualquerCoisaContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link GramaticaSintatica#for}.
 	 * @param ctx the parse tree

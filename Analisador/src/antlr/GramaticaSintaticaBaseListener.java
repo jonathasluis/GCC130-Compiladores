@@ -100,13 +100,13 @@ public class GramaticaSintaticaBaseListener implements GramaticaSintaticaListene
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterBlocoCodigo(GramaticaSintatica.BlocoCodigoContext ctx) { }
+	@Override public void enterQualquerCoisa(GramaticaSintatica.QualquerCoisaContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitBlocoCodigo(GramaticaSintatica.BlocoCodigoContext ctx) { }
+	@Override public void exitQualquerCoisa(GramaticaSintatica.QualquerCoisaContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

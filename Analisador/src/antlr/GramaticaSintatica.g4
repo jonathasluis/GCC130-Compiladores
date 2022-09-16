@@ -24,7 +24,7 @@ qualquerCoisa : ( declaracao
     | exprAr DELIMITADOR
     | input DELIMITADOR
     | output DELIMITADOR
-    | callFunc DELIMITADOR)* #BlocoCodigo;
+    | callFunc DELIMITADOR)*;
 for : FOR AP ID SEPARADOR (NUM | ID) SEPARADOR (NUM | ID) SEPARADOR NUM FP ACH qualquerCoisa FCH;
 while : WHILE AP exprCondicional FP ACH qualquerCoisa FCH;
 condicao : IF AP exprCondicional FP THEN  ACH qualquerCoisa FCH else?;
@@ -35,7 +35,7 @@ exprAt : ID OPAT (exprAr | elemento | exprCondicional);
 exprAr : elemento OPAR elemento;
 input : INPUT AP (TEXTO)? FP;
 output : OUTPUT AP TEXTO FP;
-callFunc : ID AP elementoCall FP;
+callFunc : ID AP elementoCall? FP;
 elementoCall : (expressao|elemento) (SEPARADOR (expressao|elemento))*;
 elemento : ID
     | input
@@ -43,8 +43,7 @@ elemento : ID
     | TEXTO
     | callFunc
     | VALBO;
-expressao : callFunc
-    | exprAr
+expressao : exprAr
     | exprCondicional
     | AP expressao FP;
 
