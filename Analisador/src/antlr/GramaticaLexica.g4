@@ -16,8 +16,6 @@ AP: '(';
 FP: ')';
 ACH: '{';
 FCH: '}';
-AC: '[';
-FC: ']';
 DELIMITADOR: ';';
 SEPARADOR: ',';
 RETORNO:'RETORNO';
